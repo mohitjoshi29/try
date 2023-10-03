@@ -1,25 +1,59 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Link, Route, Routes, useNavigate } from 'react-router-dom';
 
-function App() {
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />}/>
+        <Route path="contact" element={<Contact />} />
+    </Routes>
+  </BrowserRouter>
   );
 }
-
 export default App;
+
+const Home = () =>{
+  const navigate = useNavigate();
+  function navigateTo(url: string) {
+    navigate(url);
+  }
+  return(
+          <div>
+            <p>Home</p>
+            <p><button onClick={() => navigateTo("about")}>Programatically Navigate to About</button></p>
+            <p><Link to="/contact">Contact</Link></p>
+          </div>
+  )
+}
+
+const About = () =>{
+  const navigate = useNavigate();
+  const navigateTo = (url: string) => {
+    navigate(url)
+  }
+  return(
+          <div>
+            <p>About</p>
+            <p><button onClick={() => navigateTo("/")}>Programatically Navigate to Home</button></p>
+            <p><Link to="/contact">Contact</Link></p>
+          </div>
+  )
+}
+
+const Contact = () =>{
+  const navigate = useNavigate();
+  const navigateTo = (url: string) => {
+    navigate(url)
+  }
+  return(
+          <div>
+            <p>Contact</p>
+            <p><Link to="/">Home</Link></p>
+            <p><button onClick={() => navigateTo("/about")}>Programatically Navigate to About</button></p>
+          </div>
+  )
+}
